@@ -3646,7 +3646,8 @@ If NULLIFY is non-nil, nullify flushed part of Sixel buffer."
                   (eat--t-device-status-report n))
                  ;; CSI <n> SP q.
                  (`((?q ?\ ) nil ((,n)))
-                  (eat--t-set-cursor-style n))
+                  (when n
+                    (eat--t-set-cursor-style n)))
                  ;; CSI <n> ; <n> r.
                  (`((?r) nil ,(and (pred listp) params))
                   (eat--t-change-scroll-region (caadr params)
